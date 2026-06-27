@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Target Pro Analytics</title>
+    <!-- Telegram WebApp Scripti -->
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        /* Premium CSS Sozlamalari */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background: linear-gradient(135deg, #070a13 0%, #0f172a 100%);
+            color: #f8fafc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 16px;
+            overflow: hidden;
+        }
+
+        .app-container {
+            width: 100%;
+            max-width: 400px;
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 24px;
+            padding: 28px 24px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 
+                        0 0 50px rgba(56, 189, 248, 0.05);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 28px;
+        }
+
+        .header .icon-box {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, #38bdf8 0%, #3b82f6 100%);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 12px;
+            box-shadow: 0 8px 20px rgba(56, 189, 248, 0.3);
+            font-size: 24px;
+        }
+
+        .header h1 {
+            font-size: 20px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .header p {
+            font-size: 13px;
+            color: #94a3b8;
+            margin-top: 4px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 12px;
+            font-weight: 600;
+            color: #38bdf8;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+            padding-left: 4px;
+        }
+
+        .input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .input-wrapper .currency {
+            position: absolute;
+            left: 16px;
+            color: #64748b;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .form-group input {
+            width: 100%;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 14px;
+            padding: 14px 16px;
+            color: #ffffff;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        .form-group.has-currency input {
+            padding-left: 32px;
+        }
+
+        .form-group input:focus {
+            border-color: #38bdf8;
+            background: rgba(15, 23, 42, 0.9);
+            box-shadow: 0 0 15px rgba(56, 189, 248, 0.15);
+        }
+
+        .form-group input::placeholder {
+            color: #475569;
+            font-weight: 400;
+        }
+
+        .submit-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #38bdf8 0%, #2563eb 100%);
+            border: none;
+            border-radius: 14px;
+            padding: 16px;
+            color: #ffffff;
+            font-size: 15px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            margin-top: 10px;
+            box-shadow: 0 6px 20px rgba(37, 99, 235, 0.3);
+            transition: transform 0.1s ease, opacity 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .submit-btn:active {
+            transform: scale(0.98);
+            opacity: 0.9;
+        }
+
+        .footer-note {
+            text-align: center;
+            font-size: 11px;
+            color: #475569;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="app-container">
+    <div class="header">
+        <div class="icon-box">📊</div>
+        <h1>Target Pro Analytics</h1>
+        <p>Kampaniya metrikalarini chuqur tahlil qilish</p>
+    </div>
+
+    <!-- 1. Byudjet Input -->
+    <div class="form-group has-currency">
+        <label for="budget">Sarflangan Byudjet</label>
+        <div class="input-wrapper">
+            <span class="currency">$</span>
+            <input type="number" id="budget" inputmode="decimal" placeholder="0.00">
+        </div>
+    </div>
+
+    <!-- 2. Kliklar Input -->
+    <div class="form-group">
+        <label for="clicks">Jami Kliklar (Traffic)</label>
+        <input type="number" id="clicks" inputmode="numeric" placeholder="Masalan: 1200">
+    </div>
+
+    <!-- 3. Arizalar Input (PRO bot uchun eng muhimi!) -->
+    <div class="form-group">
+        <label for="leads">Arizalar soni (Leads)</label>
+        <input type="number" id="leads" inputmode="numeric" placeholder="Masalan: 85">
+    </div>
+
+    <!-- Hisoblash tugmasi -->
+    <button class="submit-btn" id="calcBtn">
+        <span>PRO Tahlilni Ishga Tushirish</span> 🚀
+    </button>
+
+    <div class="footer-note">
+        Secure end-to-end data processing via Telegram WebApp
+    </div>
+</div>
+
+<script>
+    // Telegram Mini App sozlamalarini yoqish
+    const tg = window.Telegram.WebApp;
+    tg.ready();
+    tg.expand(); // Mini App oynasini ekranga to'liq yoyish
+
+    document.getElementById('calcBtn').addEventListener('click', function() {
+        const budget = parseFloat(document.getElementById('budget').value) || 0;
+        const clicks = parseInt(document.getElementById('clicks').value) || 0;
+        const leads = parseInt(document.getElementById('leads').value) || 0;
+
+        // Validatsiya (Tekshirish)
+        if (budget <= 0 || clicks <= 0 || leads <= 0) {
+            alert("Iltimos, barcha maydonlarni to'g'ri to'ldiring!");
+            return;
+        }
+
+        // Avtomatik ichki hisob-kitob (Botga yuborish uchun)
+        const cpc = parseFloat((budget / clicks).toFixed(2));
+        const cpl = parseFloat((budget / leads).toFixed(2));
+
+        // Botga JSON holatida yuboriladigan ma'lumotlar paketi
+        const dataToSend = {
+            budget: budget,
+            clicks: clicks,
+            leads: leads,
+            cpc: cpc,
+            cpl: cpl
+        };
+
+        // Ma'lumotlarni Telegram Botga yuborish va oynani yopish
+        tg.sendData(JSON.stringify(dataToSend));
+        tg.close();
+    });
+</script>
+
+</body>
+</html>
